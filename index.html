@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Richwoods Boys Cross Country | All-Time Top 10 & Ranking Calculator</title>
+<style>
+:root{--navy:#102b46;--blue:#1d5b89;--gold:#e2ad43;--ink:#182638;--muted:#637386;--bg:#f3f6f9;--line:#dce4ec;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Arial,Helvetica,sans-serif}
+header{background:linear-gradient(120deg,#0c243b,#174c75);color:white;padding:34px 20px 30px}
+.wrap{max-width:1050px;margin:auto;padding:0 18px}
+.eyebrow{letter-spacing:.14em;font-size:11px;font-weight:700;color:#e9c46a}
+h1{font-size:clamp(27px,5vw,42px);line-height:1.08;margin:9px 0}
+header p{color:#d9e5ef;margin:10px 0 0;max-width:700px}
+main{padding:24px 0 48px}.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:22px;margin-bottom:18px;box-shadow:0 5px 20px #142d4610}
+h2{font-size:20px;margin:0 0 6px}.sub{color:var(--muted);margin:0 0 17px}
+.entry{display:flex;gap:12px;align-items:end;flex-wrap:wrap}.field{flex:1;min-width:150px}
+label{display:block;font-weight:700;font-size:13px;margin-bottom:6px}
+input,select{width:100%;padding:13px 14px;border:1px solid #bdcbd8;border-radius:9px;font-size:20px;font-weight:700;color:var(--ink);background:white}
+button{border:0;background:var(--gold);color:#172b3d;font-weight:700;padding:14px 21px;border-radius:9px;font-size:15px;cursor:pointer}
+button:hover{filter:brightness(.96)}.error{color:#b42318;font-size:13px;min-height:20px;margin-top:7px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.stat{background:#f4f7fa;border:1px solid var(--line);border-radius:11px;padding:15px}
+.stat .value{font-size:30px;font-weight:800;color:var(--navy);line-height:1.2}
+.stat .label{font-size:12px;color:var(--muted);margin-top:4px}
+table{width:100%;border-collapse:collapse;margin-top:12px}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid var(--line);font-size:14px}
+th{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:#f7f9fb}
+.delta.faster{color:#167044}.delta.slower{color:#a15b12}
+tr.you-row{background:#fff4d8;font-weight:700}tr.you-row td{border-top:2px solid #e2ad43;border-bottom:2px solid #e2ad43;color:#172b3d}.you-tag{display:inline-block;background:#e2ad43;color:#172b3d;border-radius:20px;padding:2px 8px;font-size:10px;font-weight:800;margin-left:5px;letter-spacing:.04em}
+.tag{display:inline-block;background:#fff4d8;color:#76530b;border-radius:20px;padding:3px 8px;font-size:11px;font-weight:700}
+.note{font-size:12px;color:var(--muted);margin-top:12px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.empty{padding:20px;text-align:center;color:var(--muted);background:#f7f9fb;border-radius:9px}
+footer{color:var(--muted);font-size:12px;padding:4px 0 30px}
+@media(max-width:700px){.stats{grid-template-columns:1fr}.two{grid-template-columns:1fr}.panel{padding:17px}th,td{padding:9px 6px;font-size:12px}}
+
+/* Compact all-time leaderboard, kept on the same page as the calculator */
+.leaderboard-panel{padding:14px 18px;margin-bottom:16px}
+.leaderboard-panel h2{font-size:18px;margin:0}
+.leaderboard-panel .sub{font-size:12px;margin:2px 0 8px}
+.leaderboard-table{margin-top:0}
+.leaderboard-table th,.leaderboard-table td{padding:5px 8px;font-size:12px;line-height:1.15}
+.leaderboard-table th{font-size:10px}
+.leaderboard-table .rank-cell{font-weight:800;color:var(--blue);width:48px}
+.leaderboard-table .best-time{font-weight:800;font-variant-numeric:tabular-nums;white-space:nowrap}
+.leaderboard-table .leader-name{font-weight:700}
+.leaderboard-foot{font-size:10px;color:var(--muted);margin:7px 0 0}
+@media(max-width:600px){.leaderboard-panel{padding:10px}.leaderboard-table th,.leaderboard-table td{padding:5px 4px;font-size:10px}.leaderboard-table th{font-size:9px}}
+
+
+/* Neon running-lab theme inspired by the supplied reference */
+:root{
+ --navy:#100b09;--blue:#ff8a3d;--gold:#ff9a4d;--ink:#f5eee9;--muted:#a99b92;
+ --bg:#160f0b;--line:rgba(255,166,99,.17);--white:#21150f;
+ --orange:#ff8a3d;--orange2:#ff5f32;--glow:rgba(255,112,48,.24)
+}
+html{background:var(--bg);color-scheme:dark}
+body{background:radial-gradient(ellipse at 82% 12%,rgba(112,39,13,.27),transparent 36%),radial-gradient(ellipse at 8% 62%,rgba(116,55,19,.18),transparent 38%),#160f0b;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{background:linear-gradient(112deg,#100c09 0%,#21130d 55%,#32180d 100%);color:#fff;padding:38px 20px 32px;border-bottom:1px solid rgba(255,143,72,.18);box-shadow:0 12px 50px rgba(0,0,0,.25)}
+.wrap{max-width:1320px}
+.eyebrow{color:#ff9b5c;letter-spacing:.2em;font-size:11px}
+h1{font-size:clamp(32px,5vw,54px);font-weight:650;letter-spacing:-.035em;line-height:1.04}
+header p{color:#c2b2a8;font-size:15px;max-width:760px}
+main{padding:26px 0 52px}
+.panel{background:linear-gradient(145deg,rgba(35,24,18,.96),rgba(22,15,12,.98));border:1px solid rgba(255,159,91,.16);border-radius:19px;padding:23px;margin-bottom:18px;box-shadow:0 10px 34px rgba(0,0,0,.24),inset 0 1px 0 rgba(255,255,255,.025)}
+h2{color:#fff5ef;font-size:20px;letter-spacing:-.015em}
+.sub,.note,.leaderboard-foot{color:#a99b92}
+.entry{gap:14px}
+label{color:#d8c9bf;font-size:12px;letter-spacing:.025em}
+input,select{background:#130e0b;color:#fff4ed;border:1px solid rgba(255,159,91,.25);border-radius:10px;padding:13px 14px;font-size:17px;outline:none;transition:border-color .18s,box-shadow .18s}
+input:focus,select:focus{border-color:#ff944d;box-shadow:0 0 0 3px rgba(255,137,61,.13),0 0 18px rgba(255,112,48,.12)}
+input::placeholder{color:#77675d}
+button{background:linear-gradient(110deg,#ffa14f,#ff6938);color:#1d1009;border:1px solid rgba(255,204,156,.3);border-radius:11px;padding:14px 22px;font-weight:800;box-shadow:0 8px 25px rgba(255,103,48,.22);transition:transform .18s,box-shadow .18s,filter .18s}
+button:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 10px 30px rgba(255,103,48,.34)}
+.stats{gap:12px}
+.stat{background:linear-gradient(145deg,rgba(255,142,70,.075),rgba(18,12,9,.82));border:1px solid rgba(255,157,92,.19);border-radius:14px;padding:17px}
+.stat .value{color:#ff9a52;text-shadow:0 0 18px rgba(255,118,54,.19);font-size:30px}
+.stat .label{color:#b2a198}
+table{border-collapse:separate;border-spacing:0;overflow:hidden;border:1px solid rgba(255,159,91,.14);border-radius:12px;background:rgba(12,9,7,.34)}
+th,td{border-bottom:1px solid rgba(255,159,91,.12);color:#eadfd8;padding:11px 10px}
+th{background:rgba(255,135,62,.09);color:#ffad75;font-size:10px;letter-spacing:.11em}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:rgba(255,140,66,.055)}
+.delta.faster{color:#7ee0ae}.delta.slower{color:#ffad75}
+tr.you-row{background:rgba(255,148,69,.13);font-weight:700}
+tr.you-row td{border-top:1px solid rgba(255,163,93,.65);border-bottom:1px solid rgba(255,163,93,.65);color:#fff1e7;background:rgba(255,132,54,.09)}
+.you-tag{background:linear-gradient(110deg,#ffa14f,#ff6938);color:#1d1009;border-radius:20px;padding:2px 8px;font-size:10px;font-weight:900}
+.tag{background:rgba(255,145,67,.13);color:#ffb47e;border:1px solid rgba(255,145,67,.22)}
+.empty{background:rgba(8,6,5,.34);border:1px dashed rgba(255,159,91,.2);border-radius:12px;color:#aa9a90}
+.leaderboard-panel{padding:16px 20px}
+.leaderboard-panel h2{font-size:19px}
+.leaderboard-table{background:rgba(10,7,5,.3)}
+.leaderboard-table .rank-cell{color:#ff9a52}
+.leaderboard-table .best-time{color:#fff1e8}
+.leaderboard-table tbody tr:first-child td{color:#ffb071}
+.two{gap:18px}
+.error{color:#ff786d}
+footer{color:#81736a}
+@media(max-width:700px){header{padding:30px 14px 24px}.panel{padding:16px}.entry{align-items:stretch}.field{min-width:100%}button{width:100%}.stats{grid-template-columns:1fr}.leaderboard-panel{padding:12px}.leaderboard-table th,.leaderboard-table td{padding:6px 5px;font-size:10px}}
+
+
+/* Neon green theme */
+:root{
+ --navy:#06130c;--blue:#39ff88;--gold:#7dff4f;--ink:#eafff0;--muted:#91ad9a;
+ --bg:#050b07;--line:rgba(91,255,139,.20);--white:#0b1710;
+ --orange:#39ff88;--orange2:#00d96b;--glow:rgba(57,255,136,.24)
+}
+html{background:#050b07;color-scheme:dark}
+body{background:radial-gradient(ellipse at 85% 0%,rgba(0,210,95,.12),transparent 38%),radial-gradient(ellipse at 5% 35%,rgba(57,255,136,.07),transparent 35%),#050b07;color:#eafff0}
+header{background:linear-gradient(112deg,#030805 0%,#07160d 55%,#092414 100%);border-bottom:1px solid rgba(91,255,139,.25);box-shadow:0 12px 50px rgba(0,0,0,.4)}
+.eyebrow{color:#7dff9c;text-shadow:0 0 12px rgba(57,255,136,.45)}
+h1{text-shadow:0 0 24px rgba(57,255,136,.16)}
+.panel{background:linear-gradient(145deg,rgba(10,25,15,.97),rgba(6,15,9,.98));border:1px solid rgba(91,255,139,.19);box-shadow:0 0 0 1px rgba(57,255,136,.025),0 8px 30px rgba(0,0,0,.35),0 0 24px rgba(57,255,136,.045)}
+h2{color:#eafff0}
+.sub,.note,.leaderboard-foot,footer{color:#91ad9a}
+input,select{background:#06110a;color:#eafff0;border:1px solid rgba(91,255,139,.28)}
+input:focus,select:focus{border-color:#39ff88;box-shadow:0 0 0 3px rgba(57,255,136,.14),0 0 20px rgba(57,255,136,.16)}
+button{background:linear-gradient(110deg,#9aff68,#24f783);color:#041009;border:1px solid rgba(190,255,203,.55);box-shadow:0 0 18px rgba(57,255,136,.24),0 8px 25px rgba(0,180,80,.15)}
+button:hover{box-shadow:0 0 26px rgba(57,255,136,.38),0 8px 25px rgba(0,180,80,.2);filter:brightness(1.06)}
+.stat{background:rgba(7,22,12,.9);border:1px solid rgba(91,255,139,.17)}
+.stat .value{color:#7dff9c;text-shadow:0 0 18px rgba(57,255,136,.25)}
+th{background:rgba(57,255,136,.08);color:#9bffb3}
+th,td{border-bottom-color:rgba(91,255,139,.13)}
+.delta.faster{color:#7dff9c}.delta.slower{color:#ffc078}
+tr.you-row td{border-top:1px solid rgba(91,255,139,.75);border-bottom:1px solid rgba(91,255,139,.75);color:#eafff0;background:rgba(57,255,136,.10)}
+.you-tag{background:linear-gradient(110deg,#9aff68,#24f783);color:#041009}
+.tag{background:rgba(57,255,136,.11);color:#a8ffbc;border:1px solid rgba(91,255,139,.24)}
+.leaderboard-table .rank-cell{color:#7dff9c}
+.leaderboard-table .best-time{color:#eafff0}
+.leaderboard-table tbody tr:first-child td{color:#aaffb9;text-shadow:0 0 12px rgba(57,255,136,.18)}
+.leaderboard-table tbody tr:hover,tbody tr:hover{background:rgba(57,255,136,.055)}
+.empty{background:rgba(57,255,136,.055);border:1px solid rgba(91,255,139,.12);color:#91ad9a}
+.error{color:#ff8e8e}
+::selection{background:rgba(57,255,136,.3);color:#fff}
+
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="eyebrow">RICHiWOODS BOYS CROSS COUNTRY</div>
+<h1>Richwoods Boys Cross Country</h1>
+<p>View the all-time fastest boys personal records, then enter your own 3-mile PR to compare it with Richwoods history.</p>
+</div></header>
+<main class="wrap">
+<section class="panel leaderboard-panel" aria-labelledby="top10-heading">
+<div class="heading"><h2 id="top10-heading">Richwoods All-Time Top 10</h2><span class="count">Fastest personal records</span></div>
+<p class="sub">Each runner appears once, using their fastest recorded time across all races.</p>
+<div class="table-wrap"><table class="leaderboard-table" aria-label="Richwoods all-time top ten individual boys"><thead><tr><th>Rank</th><th>Year</th><th>Name</th><th>Race</th><th>Time</th></tr></thead><tbody id="top10-body"><tr><td colspan="5">Loading rankings…</td></tr></tbody></table></div>
+<p class="leaderboard-foot">Tied performances share a rank. Asterisks identify years marked incomplete in the historical dataset.</p>
+</section>
+<section class="panel">
+<h2>Enter a 3-mile PR</h2>
+<p class="sub">Use minutes:seconds format. Example: 16:58.</p>
+<div class="entry">
+<div class="field"><label for="name">Your name</label><input id="name" type="text" placeholder="Enter your name" maxlength="60" aria-label="Your name"></div>
+<div class="field"><label for="year">Your year</label><input id="year" type="number" min="1900" max="2100" placeholder="e.g. 2026" aria-label="Your year"></div>
+<div class="field"><label for="pr">3-mile time (mm:ss)</label><input id="pr" value="16:58" inputmode="numeric" maxlength="5" aria-label="3-mile time"></div>
+<div class="field"><label for="race">Race (use the Race column)</label><select id="race"><option value="">Select a race</option></select></div>
+<button id="analyze">Compare performance</button>
+</div>
+<div id="error" class="error"></div>
+<div id="summary"></div>
+</section>
+<div class="two">
+<section class="panel">
+<h2>Player comparison · same race</h2>
+<p class="sub">The closest recorded Richwoods performances in the race you selected.</p>
+<div id="comparisons"></div>
+</section>
+<section class="panel">
+<h2>All-time comparison</h2>
+<p class="sub">Your time is inserted into the historical list so you can see where it fits among all races.</p>
+<div id="global-context"></div>
+</section>
+</div>
+<section class="panel">
+<h2>How this ranking works</h2>
+<ul>
+<li>All-time rank compares the entered time with every individual record in the workbook. Race rank compares it only with records whose Race field matches your selection.</li>
+<li>Each row is a recorded performance, not a unique athlete. If a runner appears in multiple years or races, each listed performance counts separately.</li>
+<li>“Faster performances” counts records strictly faster than the entered time. A tie receives the same competition rank. Rankings reflect this workbook, not every race Richwoods has ever run.</li>
+</ul>
+<p class="note" id="dataset-note"></p>
+</section>
+<footer>Richwoods XC Performance Analyzer · Historical workbook data supplied for this project.</footer>
+</main>
+<script>
+const DATA = {"runners":[{"year":"1983","name":"Tyno Carter","race":"IHSA Regionals","seconds":867},{"year":"1979*","name":"Dave Donlan","race":"Peoria High","seconds":879},{"year":"1971*","name":"Bill Patterson","race":"IHSA State","seconds":884},{"year":"1982*","name":"Tyno Carter","race":"IHSA Regionals","seconds":887},{"year":"1977*","name":"Mark Sherman","race":"IHSA State","seconds":889},{"year":"1996","name":"Justin Young","race":"Peoria High","seconds":890},{"year":"1974*","name":"Steve Patterson","race":"IHSA Regionals","seconds":892},{"year":"1973*","name":"Steve Patterson","race":"IHSA State","seconds":893},{"year":"1995","name":"Brendon Corrigan","race":"IHSA State","seconds":900},{"year":"1978*","name":"Dave Donlan","race":"IHSA State","seconds":903},{"year":"2000","name":"Nic Rogers","race":"Notre Dame","seconds":903},{"year":"1978*","name":"Dave Cook","race":"IHSA State","seconds":904},{"year":"1995","name":"Eric Moos","race":"IHSA State","seconds":907},{"year":"1977*","name":"Brian Buttrick","race":"IHSA Sectionals","seconds":907},{"year":"1977*","name":"Paul Baker","race":"IHSA Sectionals","seconds":912},{"year":"1994","name":"Brendan Corrigan","race":"Conference","seconds":912},{"year":"1999","name":"Nic Rogers","race":"Peoria High","seconds":912},{"year":"1978*","name":"Tom Dooley","race":"IHSA Regionals","seconds":915},{"year":"1990","name":"Brian Henz","race":"Notre Dame","seconds":915},{"year":"1974*","name":"Kraig Kramer","race":"IHSA State","seconds":915},{"year":"1976*","name":"Mark Sherman","race":"Conference","seconds":917},{"year":"1994","name":"Eric Moos","race":"IHSA Sectionals","seconds":917},{"year":"1990","name":"Brian Kuhn","race":"Peoria High","seconds":917},{"year":"1993","name":"Brendan Corrigan","race":"Peoria High","seconds":918},{"year":"1978*","name":"Eric Jungck","race":"IHSA State","seconds":920},{"year":"1972*","name":"Steve Patterson","race":"IHSA Regionals","seconds":922},{"year":"1973*","name":"Virgil Anderson","race":"IHSA Sectionals","seconds":923},{"year":"1995","name":"Justin Young","race":"Notre Dame","seconds":925},{"year":"1985","name":"David Aubrey","race":"IHSA State","seconds":925},{"year":"1986","name":"Steve Little","race":"Peoria High","seconds":929},{"year":"1972*","name":"Brain Hiserote","race":"Conference","seconds":929},{"year":"1972*","name":"Joe Sexton","race":"IHSA Sectionals","seconds":930},{"year":"1989","name":"Brian Henz","race":"Peoria High","seconds":930},{"year":"1972*","name":"Virgil Anderson","race":"IHSA Sectionals","seconds":931},{"year":"1986","name":"Pat Donlan","race":"IHSA State","seconds":932},{"year":"1989","name":"David Wood","race":"Peoria High","seconds":932},{"year":"1980*","name":"Mike Palmer","race":"Conference","seconds":932},{"year":"1981*","name":"Mike Palmer","race":"IHSA Regionals","seconds":933},{"year":"1986","name":"David Schroff","race":"IHSA State","seconds":933},{"year":"1988","name":"David Wood","race":"Peoria High","seconds":936},{"year":"1993","name":"Eric Moos","race":"Pekin","seconds":936},{"year":"1991","name":"Jason Timerman","race":"IHSA Regionals","seconds":936},{"year":"1974*","name":"Chip Pitcher","race":"IHSA State","seconds":937},{"year":"1976*","name":"Paul Baker","race":"Conference","seconds":938},{"year":"1984","name":"Pat Donlan","race":"Conference","seconds":938},{"year":"2025","name":"Gabe Gross","race":"Conference","seconds":939},{"year":"1976*","name":"Brian Buttrick","race":"Conference","seconds":939},{"year":"1988","name":"Mark Thannert","race":"IHSA Regionals","seconds":939},{"year":"1989","name":"Brian Kuhn","race":"Peoria High","seconds":940},{"year":"1982*","name":"Mike Palmer","race":"IHSA Regionals","seconds":940},{"year":"1988","name":"Mark Monge","race":"Peoria High","seconds":940},{"year":"1985","name":"Scott Runkle","race":"IHSA State","seconds":940},{"year":"1978*","name":"Tim Gamboe","race":"IHSA State","seconds":940},{"year":"1977*","name":"Dave Cook","race":"IHSA State","seconds":941},{"year":"1989","name":"Joel Peterson","race":"Peoria High","seconds":941},{"year":"1985","name":"Todd Hursey","race":"IHSA Regionals","seconds":942},{"year":"2009","name":"Thomas Harayda","race":"Peoria High","seconds":942},{"year":"1977*","name":"Eric Jungck","race":"IHSA Sectionals","seconds":943},{"year":"1984","name":"Todd Hursey","race":"Conference","seconds":944},{"year":"1992","name":"Jeff Maris","race":"Conference","seconds":945},{"year":"1985","name":"Jeff Phillips","race":"IHSA State","seconds":945},{"year":"1998","name":"Aaron Matheson","race":"Peoria High","seconds":946},{"year":"1976*","name":"Scott Dean","race":"Conference","seconds":946},{"year":"1974*","name":"Jim Benner","race":"IHSA State","seconds":946},{"year":"1983","name":"Todd Hursey","race":"IHSA Regionals","seconds":947},{"year":"1987","name":"Joel Peterson","race":"Conference","seconds":947},{"year":"1985","name":"Pat Donlan","race":"IHSA Regionals","seconds":948},{"year":"1986","name":"Mike Hursey","race":"IHSA State","seconds":949},{"year":"1983","name":"Mike Hursey","race":"IHSA Regionals","seconds":949},{"year":"1987","name":"Craig Frazier","race":"IHSA Regionals","seconds":950},{"year":"1987","name":"David Schroff","race":"Conference","seconds":950},{"year":"1979*","name":"Scott Groenke","race":"Conference","seconds":952},{"year":"1981*","name":"Tyno Carter","race":"Conference","seconds":953},{"year":"1993","name":"Jeff Maris","race":"IHSA State","seconds":953},{"year":"1993","name":"Brad Henz","race":"IHSA State","seconds":954},{"year":"1993","name":"Jon Gallas","race":"Pekin","seconds":954},{"year":"1998","name":"Nic Rogers","race":"IHSA Regionals","seconds":954},{"year":"1988","name":"Joel Peterson","race":"Peoria High","seconds":955},{"year":"1974*","name":"Chris Rider","race":"IHSA Regionals","seconds":956},{"year":"1998","name":"Austin Shoemaker","race":"Peoria High","seconds":958},{"year":"1987","name":"Mark Monge","race":"Peoria High","seconds":958},{"year":"1981*","name":"Steve Peer","race":"IHSA Regionals","seconds":958},{"year":"1988","name":"Larry Turow","race":"Peoria High","seconds":958},{"year":"1984","name":"Jeff Cook","race":"Peoria High","seconds":959},{"year":"1987","name":"David Wood","race":"Peoria High","seconds":959},{"year":"1997","name":"Aaron Matheson","race":"Conference","seconds":960},{"year":"1980*","name":"Dave Hale","race":"Conference","seconds":961},{"year":"1992","name":"Brendan Corrigan","race":"Conference","seconds":961},{"year":"1976*","name":"Dan Henery","race":"Conference","seconds":961},{"year":"1973*","name":"Ron Hasler","race":"Conference","seconds":962},{"year":"1984","name":"Mike Hursey","race":"Conference","seconds":963},{"year":"1996","name":"Jonathan Anders","race":"Conference","seconds":964},{"year":"1991","name":"Jeff Maris","race":"IHSA Regionals","seconds":965},{"year":"1980*","name":"Scott Groenke","race":"Conference","seconds":965},{"year":"1979*","name":"Tim Gamboe","race":"Conference","seconds":965},{"year":"2013","name":"Brandon Rice","race":"IHSA Sectionals","seconds":966},{"year":"2003","name":"Ali Al Khafaji","race":"IHSA Sectionals","seconds":966},{"year":"1981*","name":"Barry Causey","race":"IHSA Regionals","seconds":967},{"year":"2009","name":"Trevor Johnson","race":"Peoria High","seconds":967},{"year":"1972*","name":"Bill Haycraft","race":"IHSA Sectionals","seconds":967},{"year":"1983","name":"Pat Donlan","race":"IHSA Regionals","seconds":968},{"year":"1997","name":"Mike Illuzzi","race":"Conference","seconds":969},{"year":"2003","name":"Ryan Smith","race":"IHSA Sectionals","seconds":969},{"year":"1973*","name":"Chris Rider","race":"Conference","seconds":969},{"year":"1973*","name":"Jim Benner","race":"Conference","seconds":969},{"year":"2026","name":"Daniel Havenga","race":"Peoria High","seconds":970},{"year":"1999","name":"Nick Jongerius","race":"Peoria High","seconds":970},{"year":"1979*","name":"Dave Kagan","race":"IHSA Sectionals","seconds":971},{"year":"1990","name":"Jason Timerman","race":"Peoria High","seconds":971},{"year":"2003","name":"Doug Luebcke","race":"IHSA Sectionals","seconds":971},{"year":"1983","name":"Nathan Rueb","race":"IHSA Regionals","seconds":971},{"year":"1996","name":"Aaron Matheson","race":"Peoria High","seconds":972},{"year":"1984","name":"Steve LaCroix","race":"Conference","seconds":972},{"year":"1999","name":"Austin Shoemaker","race":"Pekin","seconds":972},{"year":"1989","name":"Mike Shekleton","race":"Conference","seconds":973},{"year":"2000","name":"Nick Jongerius","race":"Conference","seconds":974},{"year":"2005","name":"Doug Luebcke","race":"Conference","seconds":974},{"year":"1975*","name":"Dan Henery","race":"IHSA Regionals","seconds":974},{"year":"1992","name":"Parag Bhosale","race":"IHSA Regionals","seconds":975},{"year":"1999","name":"Brandon Wicklow","race":"IHSA Regionals","seconds":975},{"year":"1994","name":"Justin Young","race":"Conference","seconds":975},{"year":"1975*","name":"Brian Buttrick","race":"IHSA Regionals","seconds":976},{"year":"1994","name":"Chad Campbell","race":"Conference","seconds":976},{"year":"1981*","name":"Ron Weber","race":"IHSA Regionals","seconds":976},{"year":"1990","name":"Jeff Tucker","race":"Conference","seconds":977},{"year":"1980*","name":"Barry Causey","race":"IHSA Regionals","seconds":978},{"year":"1975*","name":"Scott Dean","race":"Conference","seconds":980},{"year":"1975*","name":"Chris Rider","race":"Conference","seconds":981},{"year":"2000","name":"Carl Glass","race":"IHSA Regionals","seconds":981},{"year":"2009","name":"Nate Carter","race":"Peoria High","seconds":981},{"year":"1994","name":"Ashok Babu","race":"Conference","seconds":981},{"year":"1980*","name":"Steve Peer","race":"Conference","seconds":982},{"year":"1986","name":"Craig Frasier","race":"IHSA State","seconds":982},{"year":"2014","name":"Shawn Rattan","race":"IHSA Sectionals","seconds":982},{"year":"1990","name":"Chris Friedman","race":"Peoria High","seconds":982},{"year":"2009","name":"Skaaren Cosse","race":"Conference","seconds":983},{"year":"1992","name":"Brad Henz","race":"Notre Dame","seconds":984},{"year":"2004*","name":"Ryan Smith","race":"Notre Dame","seconds":984},{"year":"2010","name":"Brandon Rice","race":"Peoria High","seconds":985},{"year":"1997","name":"Shailen Bhatia","race":"IHSA Regionals","seconds":985},{"year":"1997","name":"Tyler Lisenby","race":"Conference","seconds":986},{"year":"1979*","name":"Dave Hale","race":"Conference","seconds":986},{"year":"2026","name":"Carleo Walker","race":"Conference","seconds":987},{"year":"1997","name":"Austin Shoemaker","race":"Conference","seconds":987},{"year":"1995","name":"Jonathan Anders","race":"Notre Dame","seconds":987},{"year":"1999","name":"Carl Glass","race":"IHSA Regionals","seconds":988},{"year":"2014","name":"Jeremy Green","race":"IHSA Sectionals","seconds":988},{"year":"2002*","name":"Ali Al Khafaji","race":"Conference","seconds":989},{"year":"2025","name":"Daniel Havenga","race":"Conference","seconds":990},{"year":"2010","name":"Forrest Laine","race":"Peoria High","seconds":991},{"year":"2010","name":"Austin Pogioli","race":"Conference","seconds":991},{"year":"2026","name":"Cole Lystila","race":"Notre Dame","seconds":992},{"year":"1992","name":"Bill Sass","race":"Conference","seconds":992},{"year":"1996","name":"Mike Illuzzi","race":"Conference","seconds":992},{"year":"1991","name":"Mike Shekleton","race":"IHSA Regionals","seconds":993},{"year":"2004*","name":"Doug Luebcke","race":"Peoria High","seconds":993},{"year":"1991","name":"Joe Tarpey","race":"Conference","seconds":994},{"year":"1998","name":"Brandon Wicklow","race":"IHSA Regionals","seconds":994},{"year":"2010","name":"Breon Rice","race":"Peoria High","seconds":995},{"year":"2001*","name":"Ryan Young","race":"IHSA Regionals","seconds":995},{"year":"1991","name":"Jared Farr","race":"IHSA Regionals","seconds":995},{"year":"1975*","name":"Stephens","race":"Conference","seconds":996},{"year":"1982*","name":"Todd Hursey","race":"IHSA Regionals","seconds":997},{"year":"2019","name":"Kaiden Rixner","race":"Peoria High","seconds":998},{"year":"1996","name":"Shailen Bhatia","race":"Conference","seconds":999},{"year":"2002*","name":"Ryan Smith","race":"Conference","seconds":999},{"year":"2000","name":"Ryan Young","race":"IHSA Regionals","seconds":1000},{"year":"2000","name":"Brain Eissfeldt","race":"IHSA Regionals","seconds":1001},{"year":"2002*","name":"Adam Gray","race":"Conference","seconds":1003},{"year":"2012","name":"Brandon Rice","race":"FTTF","seconds":1004},{"year":"2012","name":"Breon Rice","race":"FTTF","seconds":1005},{"year":"2026","name":"Eli Hauri","race":"Peoria High","seconds":1006},{"year":"2024","name":"Aiden Post","race":"Peoria High","seconds":1006},{"year":"1995","name":"Kevin Shea","race":"Notre Dame","seconds":1006},{"year":"2024","name":"Sam Swain","race":"Peoria High","seconds":1007},{"year":"1982*","name":"Nathan Rueb","race":"IHSA Regionals","seconds":1007},{"year":"2024","name":"Gabe Gross","race":"Peoria High","seconds":1008},{"year":"2005","name":"Teddy Voelker","race":"Conference","seconds":1009},{"year":"2025","name":"Cole Lystila","race":"Conference","seconds":1010},{"year":"2003","name":"Kyle Barber","race":"IHSA Sectionals","seconds":1010},{"year":"1982*","name":"Jeff Cook","race":"IHSA Regionals","seconds":1012},{"year":"2005","name":"Matt Peharda","race":"Peoria High","seconds":1012},{"year":"2004*","name":"Steve Frye","race":"Notre Dame","seconds":1013},{"year":"2005","name":"Pete Chambers","race":"IHSA Regionals","seconds":1016},{"year":"2018","name":"Kaiden Rixner","race":"FTTF","seconds":1017},{"year":"2003","name":"Eric Biltgen","race":"Pekin","seconds":1019},{"year":"2001*","name":"Adam Gray","race":"Conference","seconds":1020},{"year":"2010","name":"Tyler Siegrist","race":"Peoria High","seconds":1022},{"year":"2014","name":"Jace Patacsil","race":"IHSA Sectionals","seconds":1023},{"year":"2001*","name":"Jerry Palagallo","race":"Notre Dame","seconds":1026},{"year":"2009","name":"Tyler Siegrist","race":"Peoria High","seconds":1027},{"year":"2024","name":"Cole Lystila","race":"Peoria High","seconds":1029},{"year":"2023","name":"Mayson Beschorner","race":"Peoria High","seconds":1029},{"year":"2023","name":"Aiden Post","race":"Peoria High","seconds":1030},{"year":"2017","name":"Kaiden Rixner","race":"Peoria High","seconds":1031},{"year":"2019","name":"Mykel Ellis","race":"Conference","seconds":1031},{"year":"2001*","name":"Ali Al Khafaji","race":"IHSA Regionals","seconds":1033},{"year":"2004*","name":"Matt Peharda","race":"Conference","seconds":1033},{"year":"2013","name":"Shawn Rattan","race":"Peoria High","seconds":1034},{"year":"2011*","name":"Brandon Rice","race":"Peoria High","seconds":1035},{"year":"2024","name":"Nathan Mura","race":"Peoria High","seconds":1035},{"year":"2015","name":"Jace Patacsil","race":"Conference","seconds":1035},{"year":"2005","name":"Kavan Shay","race":"IHSA Regionals","seconds":1036},{"year":"1998","name":"Nick Jongerius","race":"Peoria High","seconds":1037},{"year":"2018","name":"Chrishad Nash","race":"Peoria High","seconds":1037},{"year":"2012","name":"Mitch Frager","race":"Conference","seconds":1040},{"year":"2026","name":"Kellen Franken","race":"Conference","seconds":1042},{"year":"2011*","name":"Mitch Frager","race":"Peoria High","seconds":1042},{"year":"2016","name":"Andrew Workheiser","race":"Peoria High","seconds":1042},{"year":"2014","name":"Josh Boyle","race":"Peoria High","seconds":1043},{"year":"2018","name":"Andrew Workheiser","race":"Peoria High","seconds":1043},{"year":"2002*","name":"Eric Biltgen","race":"Conference","seconds":1043},{"year":"2020","name":"Mykel Ellis","race":"Conference","seconds":1045},{"year":"2023","name":"Gabe Gross","race":"Peoria High","seconds":1047},{"year":"2016","name":"Jackson Guerrero","race":"Peoria High","seconds":1047},{"year":"2002*","name":"Kyle Barber","race":"Conference","seconds":1047},{"year":"2016","name":"Nate Carter","race":"Peoria High","seconds":1048},{"year":"2015","name":"Keegan McConnell","race":"Peoria High","seconds":1048},{"year":"2004*","name":"Sydney Berkman","race":"Conference","seconds":1048},{"year":"2021","name":"Carson Kellem","race":"IHSA Regionals","seconds":1050},{"year":"2011*","name":"Breon Rice","race":"Peoria High","seconds":1050},{"year":"2020","name":"Ashton Custer","race":"IVC","seconds":1054},{"year":"2016","name":"Chrishad Nash","race":"Peoria High","seconds":1055},{"year":"2013","name":"Kiran Patel-O'Connor","race":"IHSA Regionals","seconds":1055},{"year":"2017","name":"Keegan McConnell","race":"Peoria High","seconds":1055},{"year":"2014","name":"Jackson Guerrero","race":"Peoria High","seconds":1055},{"year":"2022","name":"Aiden Post","race":"Peoria High","seconds":1058},{"year":"2001*","name":"Eric Biltgen","race":"IHSA Regionals","seconds":1059},{"year":"2013","name":"Jace Patacsil","race":"IHSA Regionals","seconds":1063},{"year":"2015","name":"Jackson Guerrero","race":"Conference","seconds":1063},{"year":"2016","name":"Keegan McConnel","race":"Peoria High","seconds":1064},{"year":"2013","name":"Dane Schlafley","race":"Peoria High","seconds":1066},{"year":"2017","name":"Andrew Workheiser","race":"Peoria High","seconds":1066},{"year":"2011*","name":"Tyler Siegrist","race":"Peoria High","seconds":1066},{"year":"2011*","name":"Duncan Latlack","race":"Peoria High","seconds":1069},{"year":"2022","name":"Owen Cook","race":"Peoria High","seconds":1069},{"year":"2023","name":"Sam Swain","race":"Conference","seconds":1072},{"year":"2015","name":"Josh Boyle","race":"FTTF","seconds":1074},{"year":"2015","name":"Andrew Wokheiser","race":"Peoria High","seconds":1075},{"year":"2019","name":"Taseem Karim","race":"Conference","seconds":1077},{"year":"2018","name":"Taseem Karim","race":"Peoria High","seconds":1077},{"year":"2025","name":"Eli Hauri","race":"Conference","seconds":1078},{"year":"2012","name":"Trent Schroeder","race":"FTTF","seconds":1081},{"year":"2022","name":"Daniel Jeffs","race":"Peoria High","seconds":1082},{"year":"2018","name":"Mykel Ellis","race":"Peoria High","seconds":1085},{"year":"2022","name":"Anthony Tuccillo","race":"FTTF","seconds":1087},{"year":"2017","name":"Austin Lin","race":"Peoria High","seconds":1092},{"year":"2012","name":"Dan Barbee","race":"Conference","seconds":1095},{"year":"2021","name":"Deven Lane","race":"IVC","seconds":1099},{"year":"2025","name":"Elliott Hicks","race":"Conference","seconds":1100},{"year":"2019","name":"Thomas Scriven","race":"Conference","seconds":1101},{"year":"2017","name":"Alex Ostrander","race":"Peoria High","seconds":1102},{"year":"2020","name":"Thomas Scriven","race":"Conference","seconds":1102},{"year":"2023","name":"Nathan Mura","race":"Dunlap","seconds":1104},{"year":"2020","name":"Carson Kellem","race":"Conference","seconds":1106},{"year":"2022","name":"Camden Kellem","race":"Peoria High","seconds":1112},{"year":"2019","name":"Isaac Galindo","race":"Peoria High","seconds":1119},{"year":"2021","name":"Aiden Post","race":"IHSA Regionals","seconds":1125},{"year":"2020","name":"Isaac Custer","race":"Conference","seconds":1129},{"year":"2021","name":"Tylon Lamie","race":"Conference","seconds":1141},{"year":"2021","name":"Anthony Joseph","race":"IVC","seconds":1147}],"seasons":[{"year":"1983","count":5,"avg":940.4,"fastest":867,"slowest":971,"gap":104},{"year":"1979*","count":5,"avg":950.6,"fastest":879,"slowest":986,"gap":107},{"year":"1971*","count":1,"avg":884.0,"fastest":884,"slowest":884,"gap":0},{"year":"1982*","count":5,"avg":968.6,"fastest":887,"slowest":1012,"gap":125},{"year":"1977*","count":5,"avg":918.4,"fastest":889,"slowest":943,"gap":54},{"year":"1996","count":5,"avg":963.4,"fastest":890,"slowest":999,"gap":109},{"year":"1974*","count":5,"avg":929.2,"fastest":892,"slowest":956,"gap":64},{"year":"1973*","count":5,"avg":943.2,"fastest":893,"slowest":969,"gap":76},{"year":"1995","count":5,"avg":945.0,"fastest":900,"slowest":1006,"gap":106},{"year":"1978*","count":5,"avg":916.4,"fastest":903,"slowest":940,"gap":37},{"year":"2000","count":5,"avg":971.8,"fastest":903,"slowest":1001,"gap":98},{"year":"1994","count":5,"avg":952.2,"fastest":912,"slowest":981,"gap":69},{"year":"1999","count":5,"avg":963.4,"fastest":912,"slowest":988,"gap":76},{"year":"1990","count":5,"avg":952.4,"fastest":915,"slowest":982,"gap":67},{"year":"1976*","count":5,"avg":940.2,"fastest":917,"slowest":961,"gap":44},{"year":"1993","count":5,"avg":943.0,"fastest":918,"slowest":954,"gap":36},{"year":"1972*","count":5,"avg":935.8,"fastest":922,"slowest":967,"gap":45},{"year":"1985","count":5,"avg":940.0,"fastest":925,"slowest":948,"gap":23},{"year":"1986","count":5,"avg":945.0,"fastest":929,"slowest":982,"gap":53},{"year":"1989","count":5,"avg":943.2,"fastest":930,"slowest":973,"gap":43},{"year":"1980*","count":5,"avg":963.6,"fastest":932,"slowest":982,"gap":50},{"year":"1981*","count":5,"avg":957.4,"fastest":933,"slowest":976,"gap":43},{"year":"1988","count":5,"avg":945.6,"fastest":936,"slowest":958,"gap":22},{"year":"1991","count":5,"avg":976.6,"fastest":936,"slowest":995,"gap":59},{"year":"1984","count":5,"avg":955.2,"fastest":938,"slowest":972,"gap":34},{"year":"2025","count":5,"avg":1023.4,"fastest":939,"slowest":1100,"gap":161},{"year":"2009","count":5,"avg":980.0,"fastest":942,"slowest":1027,"gap":85},{"year":"1992","count":5,"avg":971.4,"fastest":945,"slowest":992,"gap":47},{"year":"1998","count":5,"avg":977.8,"fastest":946,"slowest":1037,"gap":91},{"year":"1987","count":5,"avg":952.8,"fastest":947,"slowest":959,"gap":12},{"year":"1997","count":5,"avg":977.4,"fastest":960,"slowest":987,"gap":27},{"year":"2013","count":5,"avg":1036.8,"fastest":966,"slowest":1066,"gap":100},{"year":"2003","count":5,"avg":987.0,"fastest":966,"slowest":1019,"gap":53},{"year":"2026","count":5,"avg":999.4,"fastest":970,"slowest":1042,"gap":72},{"year":"2005","count":5,"avg":1009.4,"fastest":974,"slowest":1036,"gap":62},{"year":"1975*","count":5,"avg":981.4,"fastest":974,"slowest":996,"gap":22},{"year":"2014","count":5,"avg":1018.2,"fastest":982,"slowest":1055,"gap":73},{"year":"2004*","count":5,"avg":1014.2,"fastest":984,"slowest":1048,"gap":64},{"year":"2010","count":5,"avg":996.8,"fastest":985,"slowest":1022,"gap":37},{"year":"2002*","count":5,"avg":1016.2,"fastest":989,"slowest":1047,"gap":58},{"year":"2001*","count":5,"avg":1026.6,"fastest":995,"slowest":1059,"gap":64},{"year":"2019","count":5,"avg":1065.2,"fastest":998,"slowest":1119,"gap":121},{"year":"2012","count":5,"avg":1045.0,"fastest":1004,"slowest":1095,"gap":91},{"year":"2024","count":5,"avg":1017.0,"fastest":1006,"slowest":1035,"gap":29},{"year":"2018","count":5,"avg":1051.8,"fastest":1017,"slowest":1085,"gap":68},{"year":"2023","count":5,"avg":1056.4,"fastest":1029,"slowest":1104,"gap":75},{"year":"2017","count":5,"avg":1069.2,"fastest":1031,"slowest":1102,"gap":71},{"year":"2011*","count":5,"avg":1052.4,"fastest":1035,"slowest":1069,"gap":34},{"year":"2015","count":5,"avg":1059.0,"fastest":1035,"slowest":1075,"gap":40},{"year":"2016","count":5,"avg":1051.2,"fastest":1042,"slowest":1064,"gap":22},{"year":"2020","count":5,"avg":1087.2,"fastest":1045,"slowest":1129,"gap":84},{"year":"2021","count":5,"avg":1112.4,"fastest":1050,"slowest":1147,"gap":97},{"year":"2022","count":5,"avg":1081.6,"fastest":1058,"slowest":1112,"gap":54}]};
+const runners = DATA.runners;
+const raceNames = [...new Set(runners.map(r=>r.race))].sort((a,b)=>a.localeCompare(b));
+const raceSelect = document.getElementById("race");
+raceNames.forEach(name=>{const o=document.createElement("option");o.value=name;o.textContent=name;raceSelect.appendChild(o);});
+renderTop10();
+function parseTime(s){const m=String(s).trim().match(/^(\d{1,2}):([0-5]\d)$/);return m?Number(m[1])*60+Number(m[2]):null;}
+function fmt(sec){sec=Math.round(sec);return Math.floor(sec/60)+":"+String(sec%60).padStart(2,"0");}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function renderTop10(){
+ const bestByRunner=new Map();
+ runners.forEach(r=>{
+   const key=r.name.trim().toLowerCase();
+   const prior=bestByRunner.get(key);
+   if(!prior||r.seconds<prior.seconds)bestByRunner.set(key,r);
+ });
+ const best=[...bestByRunner.values()].sort((a,b)=>a.seconds-b.seconds||a.name.localeCompare(b.name));
+ const top=best.filter((r,i)=>i<10 || r.seconds===best[9]?.seconds);
+ let previous=null, rank=0;
+ document.getElementById("top10-body").innerHTML=top.map((r,i)=>{
+   if(previous===null||r.seconds!==previous)rank=i+1;
+   previous=r.seconds;
+   return `<tr><td class="rank-cell">${rank}</td><td>${esc(r.year)}</td><td class="leader-name">${esc(r.name)}</td><td>${esc(r.race)}</td><td class="best-time">${fmt(r.seconds)}</td></tr>`;
+ }).join("");
+}
+function rankFor(list,target){const faster=list.filter(r=>r.seconds<target).length;const tied=list.filter(r=>r.seconds===target).length;return {rank:faster+1,faster,tied,total:list.length};}
+function diffLabel(sec,target){const d=sec-target;return d===0?"Same time":`${Math.abs(d)} sec ${d<0?"faster":"slower"}`;}
+function tableFor(list,target,name,year,rankingList=list){
+ if(!list.length)return '<div class="empty">No historical records are available for this race.</div>';
+ const ordered=[...list].sort((a,b)=>a.seconds-b.seconds);
+ const you={name,year,seconds:target,isYou:true};
+ const insertAt=ordered.findIndex(r=>r.seconds>=target);
+ if(insertAt<0)ordered.push(you);else ordered.splice(insertAt,0,you);
+ return `<table><thead><tr><th>Rank</th><th>Runner</th><th>Year</th><th>Time</th><th>Difference</th></tr></thead><tbody>${ordered.map(r=>{
+   if(r.isYou)return `<tr class="you-row"><td class="rank-cell">—</td><td><b>${esc(name)}</b><span class="you-tag">YOU</span></td><td>${esc(year)}</td><td>${fmt(target)}</td><td>—</td></tr>`;
+   const d=r.seconds-target;
+   return `<tr><td class="rank-cell">${rankFor(rankingList,r.seconds).rank}</td><td><b>${esc(r.name)}</b></td><td>${esc(r.year)}</td><td>${fmt(r.seconds)}</td><td class="delta ${d<0?"faster":"slower"}">${diffLabel(r.seconds,target)}</td></tr>`;
+ }).join("")}</tbody></table>`;
+}
+function analyze(){
+ const target=parseTime(document.getElementById("pr").value), race=raceSelect.value, name=document.getElementById("name").value.trim(), year=document.getElementById("year").value.trim(), err=document.getElementById("error");
+ if(!name){err.textContent="Enter your name.";return;}
+ if(!/^\d{4}$/.test(year)||Number(year)<1900||Number(year)>2100){err.textContent="Enter a valid 4-digit year.";return;}
+ if(target===null){err.textContent="Enter a valid time in minutes:seconds format, such as 16:58.";return;}
+ err.textContent="";
+ const overall=rankFor(runners,target);
+ const raceRunners=race?runners.filter(r=>r.race===race):[];
+ const raceRank=race?rankFor(raceRunners,target):null;
+ document.getElementById("summary").innerHTML=`<div class="stats">
+ <div class="stat"><div class="value">${overall.rank}${overall.tied?" (tie)":""}</div><div class="label">All-time position · all races</div></div>
+ <div class="stat"><div class="value">${overall.faster}</div><div class="label">Historical performances faster</div></div>
+ <div class="stat"><div class="value">${overall.total}</div><div class="label">Total recorded performances</div></div>
+ ${raceRank?`<div class="stat"><div class="value">${raceRank.rank}${raceRank.tied?" (tie)":""}</div><div class="label">Position in ${esc(race)}</div></div>`:""}
+ </div><p class="note">${raceRank?`For ${esc(race)}, ${raceRank.faster} of ${raceRank.total} recorded performances are faster than ${fmt(target)}.`:"Select a race to see your race-specific ranking and closest same-race runner comparisons."} All-time position uses all ${runners.length} listed performances.</p>`;
+ const globalNear=[...runners].sort((a,b)=>Math.abs(a.seconds-target)-Math.abs(b.seconds-target)||a.seconds-b.seconds).slice(0,5);
+ document.getElementById("global-context").innerHTML=tableFor(globalNear,target,name,year,runners);
+ if(!race){document.getElementById("comparisons").innerHTML='<div class="empty">Choose a race above to load the closest Richwoods runners from that race.</div>';return;}
+ const raceNear=[...raceRunners].sort((a,b)=>Math.abs(a.seconds-target)-Math.abs(b.seconds-target)||a.seconds-b.seconds).slice(0,5);
+ document.getElementById("comparisons").innerHTML=tableFor(raceNear,target,name,year,raceRunners);
+}
+document.getElementById("analyze").addEventListener("click",analyze);
+document.getElementById("pr").addEventListener("keydown",e=>{if(e.key==="Enter")analyze();});
+document.getElementById("name").addEventListener("keydown",e=>{if(e.key==="Enter")analyze();});
+document.getElementById("year").addEventListener("keydown",e=>{if(e.key==="Enter")analyze();});
+raceSelect.addEventListener("change",analyze);
+document.getElementById("dataset-note").textContent=`Dataset: ${runners.length} recorded performances across ${new Set(runners.map(r=>r.year)).size} seasons and ${raceNames.length} race categories. Race comparisons use the workbook's Race column, not Race (Official).`;
+analyze();
+</script>
+</body></html>
